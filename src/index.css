@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+
+  .dark {
+    --glass-bg: rgba(15, 23, 42, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+  }
+
+  body {
+    @apply bg-[#f8fafc] text-slate-900 transition-colors duration-300 font-['Outfit',sans-serif] antialiased;
+  }
+
+  button, a {
+    @apply focus:outline-none;
+  }
+
+  /* Empêcher les liens de changer de couleur après visite */
+  a, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .dark body {
+    @apply bg-[#020617] text-slate-100;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-800 rounded-full hover:bg-slate-400 dark:hover:bg-slate-700;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    @apply shadow-xl shadow-slate-200/50 dark:shadow-none;
+  }
+
+  .btn {
+    @apply px-6 py-3 rounded-2xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none;
+  }
+  
+  .btn-primary {
+    @apply bg-navy-800 text-white hover:bg-navy-700 hover:shadow-lg hover:shadow-navy-500/30;
+  }
+  
+  .btn-secondary {
+    @apply bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800;
+  }
+  
+  .input-field {
+    @apply w-full px-5 py-3 rounded-2xl bg-white border border-slate-200 focus:ring-4 focus:ring-navy-500/10 focus:border-navy-500 outline-none transition-all dark:bg-slate-900 dark:border-slate-800 dark:text-white;
+  }
+}
+
+/* Animations CSS pures pour éviter les erreurs Tailwind @apply */
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.page-enter {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Table Shadows */
+.table-container {
+  @apply rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm;
+}
+
+/* ── Mode impression (Fix 11) ─────────────────────────────────────────────── */
+@media print {
+  /* Cacher la navigation et les boutons */
+  aside, header, footer,
+  button:not(.print-show),
+  .no-print { display: none !important; }
+
+  /* Contenu pleine largeur */
+  body { background: white !important; color: black !important; }
+  .lg\:ml-64 { margin-left: 0 !important; }
+  main { padding: 0 !important; }
+
+  /* En-tête du document imprimé */
+  .glass-card {
+    background: white !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Éviter les coupures dans les blocs importants */
+  .print-break-inside-avoid { break-inside: avoid; }
+
+  /* Titre de l'institution en haut */
+  body::before {
+    content: "Tribunal de Grande Instance de N'Djamena — JusticeTchad";
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px;
+    border-bottom: 2px solid #1e293b;
+    margin-bottom: 16px;
+  }
+}

@@ -1,0 +1,56 @@
+# Variables d'environnement — NE JAMAIS COMMITTER
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Fichiers de build / erreurs
+build_error.txt
+*.txt.log
+
+# Médias / captures hors code source
+capture/
+screenshots/
+*.tex
+
+# Scripts d'initialisation contenant des credentials
+src/scripts/
+init_db.*
+
+# Données de test / mocks
+src/mocks/
+
+# Migrations ponctuelles (archivées dans Base_de_donnees/)
+migration_*.sql
+script_*.sql
+
+# Fichiers de génération de présentation (hors code source)
+make_pptx.cjs
+*.pptx
+
+# Dossier Claude (configuration locale)
+.claude/
