@@ -30,7 +30,18 @@ import { useAuthStore } from '../store/authStore';
 
 const Dashboard = () => {
   const { user } = useAuthStore();
-  const { can, isJuge, isProcureur } = usePermissions();
+  const { can, isJuge, isProcureur, isAvocat, isGreffier, isHuissier, isNotaire, isGestionnaire, isAdmin } = usePermissions();
+
+  // Titre de civilité selon le rôle
+  const titreRole = isAdmin       ? 'Administrateur'
+                  : isJuge        ? 'Juge'
+                  : isProcureur   ? 'Procureur'
+                  : isAvocat      ? 'Maître'
+                  : isGreffier    ? 'Greffier'
+                  : isNotaire     ? 'Notaire'
+                  : isHuissier    ? 'Huissier'
+                  : isGestionnaire? 'Gestionnaire'
+                  : 'Utilisateur';
   const canSeeDemandes = can('demandes.view');
   const navigate = useNavigate();
 
@@ -101,7 +112,7 @@ const Dashboard = () => {
                <ShieldAlert size={14} /> Système de Sécurité Actif
             </div>
             <h1 className="text-4xl font-black tracking-tight">
-              Bonjour, {isJuge ? 'Juge' : isProcureur ? 'Procureur' : 'Maître'}{' '}
+              Bonjour, {titreRole}{' '}
               <span className="text-blue-400">{user?.prenom} {user?.nom}</span>
             </h1>
             <p className="text-slate-400 font-medium max-w-xl">
